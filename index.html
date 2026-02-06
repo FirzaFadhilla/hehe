@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>UNTUK PACARKUUU 💍</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg">
+  <div class="card">
+    <h1>💖 Welcome My Love 💖</h1>
+    <p>Website kecil ini dibuat khusus buat kamu 🌸</p>
+    <a href="story.html" class="btn">Masuk 💌</a>
+  </div>
+  <audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<div class="flowers">
+  <span>🌸</span><span>🌹</span><span>🌸</span><span>🌷</span>
+  <span>🌸</span><span>🌹</span><span>🌸</span><span>🌷</span>
+</div>
+<button id="musicBtn" class="music-btn" onclick="playMusic()">
+  🎵 Play Music
+</button>
+<script>
+function playMusic() {
+  const music = document.getElementById("bgMusic");
+  music.play();
+
+  document.getElementById("musicBtn").innerText = "💖 Music Playing";
+}
+</script>
+</body>
+</html>
