@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Game Love Zaaa 💖</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(to bottom,#ff9a9e,#fad0c4);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+h1{margin:15px;}
+#score{margin-bottom:10px;font-size:20px;}
+
+.game-area{
+  position:relative;
+  width:100%;
+  height:75vh;
+  overflow:hidden;
+}
+
+.heart{
+  position:absolute;
+  font-size:32px;
+  cursor:pointer;
+  animation:fall linear forwards;
+}
+
+.special{
+  font-size:38px;
+  filter:drop-shadow(0 0 10px gold);
+}
+
+@keyframes fall{
+  from{transform:translateY(-50px);}
+  to{transform:translateY(100vh);}
+}
+
+.pop{animation:pop .2s forwards;}
+@keyframes pop{to{transform:scale(1.5);opacity:0;}}
+
+/* BOOM EFFECT */
+.boom{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(255,0,100,0.8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation:flash .4s;
+}
+
+@keyframes flash{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+.boom img{
+  max-width:300px;
+  border-radius:20px;
+  box-shadow:0 0 40px white;
+  animation:zoom 0.5s;
+}
+
+@keyframes zoom{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.proposal-btn{
+  display:none;
+  margin-top:10px;
+  padding:15px 35px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:#ff2e63;
+  color:white;
+  cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<h1>💖 Tangkap 10 Hati Untuk Unlock Proposal 💖</h1>
+<div id="score">Skor: 0 / 10</div>
+
+<div class="game-area" id="game"></div>
+
+<button class="proposal-btn" id="proposalBtn" onclick="goProposal()">
+💍 Buka Proposal 💍
+</button>
+
+<script>
+
+let score=0;
+const target=10;
+const game=document.getElementById("game");
+const scoreDisplay=document.getElementById("score");
+const proposalBtn=document.getElementById("proposalBtn");
+
+const photos=["foto1.jpg","foto2.jpg","foto3.jpg"];
+
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  
+  // 20% chance special heart
+  const isSpecial=Math.random()<0.2;
+  
+  if(isSpecial){
+    heart.innerHTML="🌟";
+    heart.classList.add("special");
+  }else{
+    heart.innerHTML="💖";
+  }
+
+  heart.style.left=Math.random()*90+"vw";
+  heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+  heart.onclick=function(){
+    heart.classList.add("pop");
+    setTimeout(()=>heart.remove(),200);
+
+    if(isSpecial){
+      showBoomPhoto();
+    }else{
+      score++;
+      scoreDisplay.innerHTML="Skor: "+score+" / "+target;
+    }
+
+    if(score>=target){
+      proposalBtn.style.display="inline-block";
+    }
+  }
+
+  game.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+
+function showBoomPhoto(){
+  const boom=document.createElement("div");
+  boom.className="boom";
+
+  const img=document.createElement("img");
+  img.src=photos[Math.floor(Math.random()*photos.length)];
+
+  boom.appendChild(img);
+  document.body.appendChild(boom);
+
+  setTimeout(()=>boom.remove(),1500);
+}
+
+function goProposal(){
+  window.location.href="proposal.html";
+}
+
+setInterval(createHeart,800);
+
+</script>
+
+</body>
+</html>
